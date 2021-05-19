@@ -29,10 +29,11 @@ SortMaterials.initializeUI = async function()
     contentContainer.appendChild(new FormIt.PluginUI.SubheaderModule('Sort Alphabetically', 'show').element);
 
     // a short description
-    //let alphabeticalDescription = document.createElement('div');
+    let alphabeticalDescription = document.createElement('div');
+    alphabeticalDescription.innerHTML = ' ';
     //alphabeticalDescription.innerHTML = 'Sort by Material name.';
-    //alphabeticalDescription.id = 'pluginSubheaderDescription';
-    //contentContainer.appendChild(alphabeticalDescription);
+    alphabeticalDescription.id = 'pluginSubheaderDescription';
+    contentContainer.appendChild(alphabeticalDescription);
 
     // sort alphabetical - ascending
     contentContainer.appendChild(new FormIt.PluginUI.Button('Sort Alphabetically (ascending)', SortMaterials.sortAlphabeticallyAscending).element);
@@ -87,9 +88,18 @@ SortMaterials.sortAlphabeticallyAscending = async function()
         await FormIt.SketchMaterials.ChangeMaterialOrder(aUnorderedMaterialIDs[i], index);
     }
 
-    let successMessage = 'Sorted ' + aUnorderedMaterialNames.length + ' in-sketch materials in the Materials palette.';
-    await FormIt.UI.ShowNotification(successMessage, FormIt.NotificationType.Success, 0);
-    console.log("\n" + successMessage);
+    if (aUnorderedMaterialIDs.length > 1)
+    {
+        let successMessage = 'Sorted ' + aUnorderedMaterialNames.length + ' in-sketch materials in the Materials palette.';
+        await FormIt.UI.ShowNotification(successMessage, FormIt.NotificationType.Success, 0);
+        console.log("\n" + successMessage);
+    }
+    else
+    {
+        let noMaterialsMessage = 'Not enough materials present to sort. Add at least 2 materials to the sketch, then try again.';
+        await FormIt.UI.ShowNotification(noMaterialsMessage, FormIt.NotificationType.Information, 0);
+        console.log("\n" + noMaterialsMessage);
+    }
 }
 
 SortMaterials.sortAlphabeticallyDescending = async function()
@@ -109,8 +119,17 @@ SortMaterials.sortAlphabeticallyDescending = async function()
         await FormIt.SketchMaterials.ChangeMaterialOrder(aUnorderedMaterialIDs[i], index);
     }
 
-    let successMessage = 'Sorted ' + aUnorderedMaterialNames.length + ' in-sketch materials in the Materials palette.';
-    await FormIt.UI.ShowNotification(successMessage, FormIt.NotificationType.Success, 0);
-    console.log("\n" + successMessage);
+    if (aUnorderedMaterialIDs.length > 1)
+    {
+        let successMessage = 'Sorted ' + aUnorderedMaterialNames.length + ' in-sketch materials in the Materials palette.';
+        await FormIt.UI.ShowNotification(successMessage, FormIt.NotificationType.Success, 0);
+        console.log("\n" + successMessage);
+    }
+    else
+    {
+        let noMaterialsMessage = 'Not enough materials present to sort. Add at least 2 materials to the sketch, then try again.';
+        await FormIt.UI.ShowNotification(noMaterialsMessage, FormIt.NotificationType.Information, 0);
+        console.log("\n" + noMaterialsMessage);
+    }
 }
 
