@@ -1,0 +1,8 @@
+{
+    "PluginName": "Sort Materials",
+    "PluginDescription": "Sort the list of In Sketch materials.",
+    "PluginType": "Panel",
+    "Scripts": [],
+    "Panel": "PLUGINLOCATION/index.html",
+    "PanelIcon": "PLUGINLOCATION/img/sort_materials@2x.png"
+}
