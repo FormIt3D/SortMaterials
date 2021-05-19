@@ -1,6 +1,6 @@
 {
     "PluginName": "Sort Materials",
-    "PluginDescription": "Sort the list of In Sketch materials.",
+    "PluginDescription": "Sort the list of In-Sketch materials.",
     "PluginType": "Panel",
     "Scripts": [],
     "Panel": "PLUGINLOCATION/index.html",
