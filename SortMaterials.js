@@ -29,10 +29,10 @@ SortMaterials.initializeUI = async function()
     contentContainer.appendChild(new FormIt.PluginUI.SubheaderModule('Sort Alphabetically', 'show').element);
 
     // a short description
-    let alphabeticalDescription = document.createElement('div');
-    alphabeticalDescription.innerHTML = 'Sort by Material name.'
-    alphabeticalDescription.id = 'pluginSubheaderDescription';
-    contentContainer.appendChild(alphabeticalDescription);
+    //let alphabeticalDescription = document.createElement('div');
+    //alphabeticalDescription.innerHTML = 'Sort by Material name.';
+    //alphabeticalDescription.id = 'pluginSubheaderDescription';
+    //contentContainer.appendChild(alphabeticalDescription);
 
     // sort alphabetical - ascending
     contentContainer.appendChild(new FormIt.PluginUI.Button('Sort Alphabetically (ascending)', SortMaterials.sortAlphabeticallyAscending).element);
