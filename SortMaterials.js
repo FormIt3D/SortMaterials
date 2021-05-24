@@ -64,7 +64,7 @@ SortMaterials.getInSketchMaterialNamesSortedAlphabetically = async function()
         // if the name result is valid, push the name into the array
         if (nameObject.Result == true)
         {
-            aUnorderedMaterialNames.push(nameObject.Name);
+            aUnorderedMaterialNames.push((nameObject.Name).toLowerCase());
         }
     }
 
@@ -77,15 +77,22 @@ SortMaterials.sortAlphabeticallyAscending = async function()
     console.clear();
     console.log("Sort Materials - Alphabetical - Ascending");
 
+    await FormIt.UI.ShowNotification('Sorting materials...', FormIt.NotificationType.Information, 0);
+
     let aAlphabeticalMaterialNames = await SortMaterials.getInSketchMaterialNamesSortedAlphabetically();
 
     for (var i = 0; i < aUnorderedMaterialNames.length; i++)
     {
         // get the correct index for each material
         let index = aAlphabeticalMaterialNames.indexOf(aUnorderedMaterialNames[i]);
+        //console.log("Index for " + aUnorderedMaterialNames[i] + " is: " + index);
 
-        // change the material order in FormIt
-        await FormIt.SketchMaterials.ChangeMaterialOrder(aUnorderedMaterialIDs[i], index);
+        // only reorder if the order isn't correct already
+        if (index != i)
+        {
+            // change the material order in FormIt
+            await FormIt.SketchMaterials.ChangeMaterialOrder(aUnorderedMaterialIDs[i], index);
+        }
     }
 
     if (aUnorderedMaterialIDs.length > 1)
@@ -107,6 +114,8 @@ SortMaterials.sortAlphabeticallyDescending = async function()
     console.clear();
     console.log("Sort Materials - Alphabetical - Descending");
 
+    await FormIt.UI.ShowNotification('Sorting materials...', FormIt.NotificationType.Information, 0);
+
     let aAlphabeticalMaterialNames = await SortMaterials.getInSketchMaterialNamesSortedAlphabetically();
     let aReverseAlphabeticalMaterialNames = aAlphabeticalMaterialNames.reverse();
 
@@ -114,9 +123,14 @@ SortMaterials.sortAlphabeticallyDescending = async function()
     {
         // get the correct index for each material
         let index = aReverseAlphabeticalMaterialNames.indexOf(aUnorderedMaterialNames[i]);
+        //console.log("Index for " + aUnorderedMaterialNames[i] + " is: " + index);
 
-        // change the material order in FormIt
-        await FormIt.SketchMaterials.ChangeMaterialOrder(aUnorderedMaterialIDs[i], index);
+        // only reorder if the order isn't correct already
+        if (index != i)
+        {
+            // change the material order in FormIt
+            await FormIt.SketchMaterials.ChangeMaterialOrder(aUnorderedMaterialIDs[i], index);
+        }
     }
 
     if (aUnorderedMaterialIDs.length > 1)
