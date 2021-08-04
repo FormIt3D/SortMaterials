@@ -45,9 +45,11 @@ SortMaterials.initializeUI = async function()
     document.body.appendChild(new FormIt.PluginUI.FooterModule().element);
 }
 
+
 /*** application code - runs asynchronously from plugin process to communicate with FormIt ***/
 
 // returns an array of all in-sketch material names sorted alphabetically
+// can be simply reversed later to get names sorted alphabetically descending
 SortMaterials.getInSketchMaterialNamesSortedAlphabetically = async function()
 {
     // array of material IDs currently in the sketch
@@ -77,23 +79,23 @@ SortMaterials.sortAlphabeticallyAscending = async function()
     console.clear();
     console.log("Sort Materials - Alphabetical - Ascending");
 
-    await FormIt.UI.ShowNotification('Sorting materials...', FormIt.NotificationType.Information, 0);
-
     let aAlphabeticalMaterialNames = await SortMaterials.getInSketchMaterialNamesSortedAlphabetically();
+    let aAlphabeticalMaterialIDs = [];
 
+    // create an array of IDs in the correct corder
     for (var i = 0; i < aUnorderedMaterialNames.length; i++)
     {
         // get the correct index for each material
-        let index = aAlphabeticalMaterialNames.indexOf(aUnorderedMaterialNames[i]);
-        //console.log("Index for " + aUnorderedMaterialNames[i] + " is: " + index);
+        let index = aUnorderedMaterialNames.indexOf(aAlphabeticalMaterialNames[i]);
+        //FormIt.ConsoleLog("Index for " + aUnorderedMaterialNames[i] + " is: " + index);
 
-        // only reorder if the order isn't correct already
-        if (index != i)
-        {
-            // change the material order in FormIt
-            await FormIt.SketchMaterials.ChangeMaterialOrder(aUnorderedMaterialIDs[i], index);
-        }
+        let materialID = aUnorderedMaterialIDs[index];
+
+        aAlphabeticalMaterialIDs.push(materialID);
     }
+
+    // new API - available in v22 or newer only 
+    await FormIt.SketchMaterials.RearrangeMaterials(aAlphabeticalMaterialIDs, WSM.INVALID_ID, false);
 
     if (aUnorderedMaterialIDs.length > 1)
     {
@@ -114,24 +116,25 @@ SortMaterials.sortAlphabeticallyDescending = async function()
     console.clear();
     console.log("Sort Materials - Alphabetical - Descending");
 
-    await FormIt.UI.ShowNotification('Sorting materials...', FormIt.NotificationType.Information, 0);
-
     let aAlphabeticalMaterialNames = await SortMaterials.getInSketchMaterialNamesSortedAlphabetically();
-    let aReverseAlphabeticalMaterialNames = aAlphabeticalMaterialNames.reverse();
+    let aAlphabeticalMaterialIDs = [];
 
+    // create an array of IDs in the correct corder
     for (var i = 0; i < aUnorderedMaterialNames.length; i++)
     {
         // get the correct index for each material
-        let index = aReverseAlphabeticalMaterialNames.indexOf(aUnorderedMaterialNames[i]);
-        //console.log("Index for " + aUnorderedMaterialNames[i] + " is: " + index);
+        let index = aUnorderedMaterialNames.indexOf(aAlphabeticalMaterialNames[i]);
+        //FormIt.ConsoleLog("Index for " + aUnorderedMaterialNames[i] + " is: " + index);
 
-        // only reorder if the order isn't correct already
-        if (index != i)
-        {
-            // change the material order in FormIt
-            await FormIt.SketchMaterials.ChangeMaterialOrder(aUnorderedMaterialIDs[i], index);
-        }
+        let materialID = aUnorderedMaterialIDs[index];
+
+        aAlphabeticalMaterialIDs.push(materialID);
     }
+
+    let aReverseAlphabeticalMaterialIDs = aAlphabeticalMaterialIDs.reverse();
+
+    // new API - available in v22 or newer only 
+    await FormIt.SketchMaterials.RearrangeMaterials(aReverseAlphabeticalMaterialIDs, WSM.INVALID_ID, false);
 
     if (aUnorderedMaterialIDs.length > 1)
     {

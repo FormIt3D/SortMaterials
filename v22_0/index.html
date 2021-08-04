@@ -1,0 +1,23 @@
+<html>
+<head>
+    <!-- for testing shared files locally, use: ../../FormItExamplePlugins/SharedPluginFiles -->
+    <link rel="stylesheet" type="text/css" href="https://formit3d.github.io/FormItExamplePlugins/SharedPluginFiles/FormItPluginStyling.css"/>
+    <title>Fillet Corner</title>
+    <META NAME="Title" CONTENT="Sort Materials">
+    <META NAME="Author" CONTENT="Autodesk FormIt">
+    <script type="text/javascript" src="https://formit3d.github.io/SharedPluginUtilities/FormIt_v22.js"></script>
+    <script type="text/javascript" src="https://formit3d.github.io/FormItExamplePlugins/SharedPluginFiles/FormItInterface.js"></script>
+    <script type="text/javascript" src="https://formit3d.github.io/FormItExamplePlugins/SharedPluginFiles/FormItPluginUI.js"></script>
+    <script type="text/javascript" src="SortMaterials.js"></script>
+    <script type="text/javascript">
+        FormItInterface.Initialize(async function () {
+
+            await SortMaterials.initializeUI();
+
+        });
+    </script>
+</head>
+<body>
+
+</body>
+</html>
